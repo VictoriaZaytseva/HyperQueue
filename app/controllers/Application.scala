@@ -9,4 +9,14 @@ class Application extends Controller {
     Ok(views.html.index("Your new application is ready."))
   }
 
+  def consume(topicName: String) = Action.async{
+
+  }
+
+  def produce(topicName: String) = Action.async{
+    //verify topicName - BadRequest or move on
+    // find topics, if topic doesnt exist add one
+    //
+  }
+
 }
