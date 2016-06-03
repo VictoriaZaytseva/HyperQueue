@@ -1,3 +1,6 @@
+package services
+import models.{Topic, TEvent}
+
 class TopicService {
   //map of all the topics
   var topics = Map[String, Topic]()

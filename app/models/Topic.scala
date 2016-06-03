@@ -1,5 +1,6 @@
-import scala.collection.mutable.ListBuffer
+package models
 
+import scala.collection.mutable.ListBuffer
 /**
   * Broker´s queue of the events
   */

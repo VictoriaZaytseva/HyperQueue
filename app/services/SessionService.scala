@@ -1,4 +1,7 @@
+package services
+
 import java.util.UUID
+import models.Session
 
 class SessionService {
   var session = new Session();
