@@ -3,11 +3,12 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
+GET            /                   controllers.Application.index
+GET            /:topicName         controllers.Application.consume(topicName: String)
+POST           /:topicName         controllers.Application.produce(topicName: String)
 
-GET     /:topicName                 controllers.Application.consume(topicName: String)
-POST    /:topicName                controllers.Application.produce(topicName: String)
+OPTIONS        /:topicName         controllers.Application.checkPreFlight(topicName: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET            /assets/*file       controllers.Assets.versioned(path="/public", file: Asset)
 

@@ -1,5 +1,5 @@
 package models
-
+import play.api.Logger
 import scala.collection.mutable.ListBuffer
 /**
   * Broker´s queue of the events
@@ -11,11 +11,17 @@ class Topic() {
   private var eventQueue = ListBuffer[TEvent]()
 
   def get(index: Int): TEvent = {
+    Logger.debug("getting event for index" + index)
     eventQueue(index)
   }
 
   def insert(event: TEvent): Unit ={
+    Logger.debug("inserting" + event.toString)
     eventQueue.+=(event)
+  }
+
+  def size(): Int ={
+    eventQueue.length
   }
 
   //removing the first element like in a good old queue
