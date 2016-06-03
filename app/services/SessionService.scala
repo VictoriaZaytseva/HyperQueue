@@ -5,8 +5,13 @@ class SessionService {
   /**
     * Get current position
      */
-  def getCurrentPosition(id: Option[UUID]): Int = {
-    0
+  def getCurrentPosition(sessionId: UUID): Int = {
+     session.getPosition (sessionId) match {
+       case Some(position) => position
+       case None => {
+         session.create(sessionId)
+         0
+       }
+     }
   }
-
 }
