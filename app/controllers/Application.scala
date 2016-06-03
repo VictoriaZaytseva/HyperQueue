@@ -1,5 +1,9 @@
 package controllers
 
+import models.TEvent
+import services.SessionService
+import services.TopicService
+import java.util.UUID
 import play.api._
 import play.api.mvc._
 import services.SessionService
@@ -36,8 +40,14 @@ class Application extends Controller {
   def produce(topicName: String) = Action(parse.json) {implicit request =>
     //verify topicName - BadRequest or move on
     // find topics, if topic doesnt exist add one
-    //
-    Ok("hello p")
+    request.body.validate[TEvent].fold(
+      valid = postData => {
+        topicService.push(topicName, postData)
+        Ok("Success")
+      },
+      invalid = error => {
+        BadRequest("Something is wrong with the request")
+      }
+    )
   }
-
 }
