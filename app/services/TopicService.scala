@@ -2,10 +2,18 @@ package services
 import models.{Topic, TEvent}
 import play.api.Logger
 
+/**
+  * This is the service that handles the topics
+  */
 class TopicService {
   //map of all the topics
   var topics = Map[String, Topic]()
 
+  /**
+    * Add new event to the topic
+    * @param topicName
+    * @param event
+    */
   def push(topicName: String, event: TEvent): Unit = {
     Logger.debug("pushing topic "+topicName+ " event " + event.toString)
     topics.get(topicName) match {
@@ -28,6 +36,12 @@ class TopicService {
     }
   }
 
+  /**
+    * Consume an event
+    * @param topicName
+    * @param position
+    * @return
+    */
   def consume(topicName: String, position: Int): Option[TEvent] = {
     topics.get(topicName) match {
       case Some(topic) => {

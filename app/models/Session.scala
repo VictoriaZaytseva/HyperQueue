@@ -4,6 +4,9 @@ import play.api.Logger
 import java.util.UUID
 import scala.collection.mutable.Map
 
+/**
+  * This structure holds the maps with the positions of current consumers
+  */
 class Session {
 
   private var positions = Map[UUID, Map[String, Int]]()
@@ -15,8 +18,8 @@ class Session {
     }
   }
 
-  def sessionExists(session: UUID): Option[Map[String, Int]] ={
-    positions(session)
+  def sessionExists(session: UUID): Boolean ={
+    positions.contains(session)
   }
 
   def create(id: UUID): Unit ={
@@ -28,6 +31,6 @@ class Session {
   }
 
   def inc(session: UUID, topicName: String): Unit = {
-    positions(session)(topicName)= positions(session)(topicName)
+    positions(session)(topicName)= positions(session)(topicName)+1
   }
 }

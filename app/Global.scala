@@ -11,7 +11,7 @@ import scala.concurrent.Future
 
 object Global extends GlobalSettings {
   /**
-    * Global action composition.
+    * Override the filter to enable cross domain requests.
     */
   override def doFilter(action: EssentialAction): EssentialAction = EssentialAction { request =>
 
@@ -28,15 +28,17 @@ object Global extends GlobalSettings {
         CACHE_CONTROL -> "no-store, no-cache, must-revalidate, max-age=0",
         EXPIRES -> "Sat, 26 Jul 1997 05:00:00 GMT",
         ACCESS_CONTROL_ALLOW_ORIGIN -> ACAOheader,
-        ACCESS_CONTROL_ALLOW_METHODS -> "GET POST",
-        ACCESS_CONTROL_ALLOW_HEADERS ->  s"$ORIGIN, X-Requested-With, $CONTENT_TYPE, $ACCEPT, $AUTHORIZATION, X-Auth-Token"
+        ACCESS_CONTROL_ALLOW_METHODS -> "GET POST"
+        //ACCESS_CONTROL_ALLOW_HEADERS ->  s"$ORIGIN, X-Requested-With, $CONTENT_TYPE, $ACCEPT, $AUTHORIZATION, X-Auth-Token"
       ))
     }
     else {
       action.apply(request).map(_.withHeaders(
       ACCESS_CONTROL_ALLOW_ORIGIN -> ACAOheader,
-      ACCESS_CONTROL_ALLOW_METHODS -> "GET POST",
-      ACCESS_CONTROL_ALLOW_HEADERS ->  s"$ORIGIN, X-Requested-With, $CONTENT_TYPE, $ACCEPT, $AUTHORIZATION, X-Auth-Token"))
+      ACCESS_CONTROL_ALLOW_METHODS -> "GET POST"
+      ))
+      //ACCESS_CONTROL_ALLOW_HEADERS ->  s"$ORIGIN, X-Requested-With, $CONTENT_TYPE, $ACCEPT, $AUTHORIZATION, X-Auth-Token"
+      //))
     }
   }
 }
